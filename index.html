@@ -244,7 +244,7 @@
     loadingAnimation.open('正在提交……');
     $.ajax({
       url: url,
-      type: "POST",
+      type: "GET",
       data: nui.encode(param),
       contentType: 'text/json',
       success: function (text) {
@@ -264,7 +264,7 @@
   function loadData(url, json) {
     $.ajax({
       url: url,
-      type: "POST",
+      type: "GET",
       cache: false,
       data: nui.encode(json),
       contentType: 'text/json',
@@ -422,7 +422,7 @@
   function getStudentBackSchoolData() {
     $.ajax({
       url: "backSchoolData.json",
-      type: 'POST',
+      type: 'GET',
       data: {xh: "12345678"},
       async: false,
       cache: false,
@@ -472,7 +472,7 @@
   function getStudentPass(parentUrl) {
     $.ajax({
       url: "studentPass.json",
-      type: 'POST',
+      type: 'GET',
       data: {xh: "12345678"},
       async: false,
       cache: false,
@@ -530,7 +530,7 @@
   function getStudentBackSchoolData2(parentUrl) {
     $.ajax({
       url: "com.ygc.product.ehall.dingding.backSchool.getBackSchoolState.getStudentBackSchoolData2.biz.ext",
-      type: 'POST',
+      type: 'GET',
       data: {xh: "12345678"},
       cache: false,
       dataType: "json",
