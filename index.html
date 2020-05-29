@@ -1,0 +1,619 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!--
+  - Author(s): cjq
+  - Date: 2020-05-2 15:45
+  - Description:
+-->
+
+<head>
+  <title>浙大城市学院返校码</title>
+
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="format-detection" content="telephone=no"/>
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <!-- css -->
+  <link rel="stylesheet" href="static/layui.css" media="all">
+  <link rel="stylesheet" type="text/css" href="static/jquery-weui.css">
+  <link rel="stylesheet" type="text/css" href="static/weui.min.css">
+  <link rel="stylesheet" href="static/lCalendar.min.css">
+  <link rel="stylesheet" href="static/mobileSelect.min.css">
+  <link rel="stylesheet" href="static/index.css"/>
+  <link rel="stylesheet" href="static/mess.css"/>
+  <link rel="stylesheet" href="static/repat.css"/>
+
+  <!-- js -->
+  <script src="static/nui.js" type="text/javascript"></script>
+  <script type="text/javascript" src="static/jquery.min.js"></script>
+
+  <!-- plugins all-->
+  <!-- mobile select -->
+  <script src="static/mobileSelect.min.js" type="text/javascript"></script>
+  <!-- mobile calendar -->
+  <script type="text/javascript" src="static/lCalendar.min.js"></script>
+  <!-- layui -->
+  <script src="static/layui.js"></script>
+  <!-- weui -->
+  <script src="static/jquery-weui.js"></script>
+
+  <!-- plugins all-->
+  <!-- jsFunction -->
+  <script src="static/baseFunction.js"></script>
+  <!-- <script src="/default/js/vconsole.min.js"></script>
+  <script>var vConsole = new VConsole();</script> -->
+
+
+  <style type="text/css">
+    .html, body {
+      height: 100vh;
+    }
+
+    #apply {
+      display: none;
+    }
+
+    .main {
+      position: relative;
+      min-height: 100vh;
+      background: #fff;
+    }
+
+    .main .head {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      height: 4rem;
+      background: url("static/health_back.jpg") no-repeat center;
+      background-size: 100%;
+      color: #fff;
+      font-size: .1rem;
+    }
+
+    .main .content {
+      width: 100%;
+      margin-top: -2rem;
+      padding: 0 .4rem .4rem;
+      box-sizing: border-box;
+    }
+
+    .main .content .item {
+      width: 100%;
+      padding: .3rem .25rem;
+      background: #fff;
+      border-radius: .2rem;
+      text-align: center;
+      box-shadow: 0 0 .15rem #666;
+    }
+
+    .content .user {
+      display: flex;
+      justify-content: space-between;
+      line-height: .55rem;
+      font-size: .35rem;
+      letter-spacing: .02rem;
+      margin-bottom: .25rem;
+    }
+
+    .content .user-type {
+      height: .5rem;
+      line-height: .5rem;
+      color: #fff;
+      font-weight: 400;
+      font-size: .28rem;
+      background: #3E89F6;
+      padding: 0 .08rem;
+      border-radius: .1rem;
+      margin-right: .5rem;
+    }
+
+    .content .new-time {
+      height: 2rem;
+      line-height: 1rem;
+      font-size: .6rem;
+      font-weight: bold;
+      margin-bottom: .25rem;
+    }
+
+    .content .new-time .time-inner {
+      font-size: .8rem;
+    }
+
+    .content .qr-code {
+      width: 3.2rem;
+      height: 3.2rem;
+      margin: 0 auto .25rem;
+    }
+
+    .content .qr-code canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    .content .valid-time,
+    .content .sync-time {
+      font-size: .26rem;
+      color: #C2C2C2;
+      margin-bottom: .25rem;
+    }
+
+    .content .health-type {
+      font-size: .32rem;
+      color: #81AF78;
+      margin-bottom: .25rem;
+    }
+
+    .content .explains {
+      color: #888;
+      font-size: .3rem;
+      margin-bottom: .25rem;
+    }
+
+    .content .btn {
+      display: flex;
+      justify-content: space-around;
+      width: 60%;
+      margin: 0 auto .06rem;
+      text-decoration: underline;
+      font-size: .3rem;
+    }
+
+    .content .btn a {
+      color: #666;
+    }
+
+    .main .other {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 .5rem;
+      font-size: .32rem;
+      color: #999;
+      margin-top: .35rem;
+    }
+
+    .main .other .other-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: .16rem;
+    }
+
+    .main .other p {
+      color: #999;
+    }
+
+    .main .other a {
+      color: #618EC8;
+    }
+  </style>
+</head>
+
+<body>
+<form id="apply">
+  <div class="main">
+    <div class="head"></div>
+    <div class="content">
+      <div class="item">
+        <div class="user">
+          <p class="user-name"></p>
+          <p class="user-type"></p>
+        </div>
+        <p class="new-time">
+          <!-- 							05月02日	18:01:15 -->
+        </p>
+        <div class="qr-code" id="qrcode"></div>
+        <p class="valid-time">有效期：<span></span></p>
+        <p class="health-type">杭州市健康码为 <span></span></p>
+        <p class="sync-time">同步时间：<span></span></p>
+        <p class="explains">凭此码可在浙大城市学院内通行<br/>请主动出示，配合检查</p>
+        <div class="btn"><a href="/default/dingding/IndexStudent.jsp">办事大厅</a><!-- <a href="javascript:;">查看申请记录</a> -->
+        </div>
+      </div>
+      <!-- 					<div class="other"> -->
+      <!-- 						<div class="other-item"> -->
+      <!-- 							<p>安保处 &nbsp;&nbsp;：0571-88206110</p> -->
+      <!-- 							<a href="">常见问题</a> -->
+      <!-- 						</div> -->
+      <!-- 						<div class="other-item"> -->
+      <!-- 							<p>技术支持：0571-87951669</p> -->
+      <!-- 						</div> -->
+      <!-- 					</div> -->
+    </div>
+  </div>
+</form>
+</body>
+
+<!-- 公共方法-->
+
+<script>
+  var contextPath = "/default";
+  var busData = null;
+
+  /***
+   * 数据提交接口方法
+   * ajaxData(url, href, data, msg)
+   * url: 接口地址
+   * href: 执行成功后页面跳转/刷新当前页
+   * data: 提交的表单数据
+   * msg: 弹窗提示
+   */
+  function ajaxData(url, href, param, msg) {
+    //提交时显示load动画,保证用户不会多次点击
+    loadingAnimation.open('正在提交……');
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: nui.encode(param),
+      contentType: 'text/json',
+      success: function (text) {
+        //提交成功后关闭load动画
+        loadingAnimation.close();
+        //$.isEmptyObject,判断非空对象（{}），如是空对象，则返回true
+        if ($.isEmptyObject(text)) {
+          DDAlertTo(msg, href);
+        } else {
+          DDAlert("请联系系统管理员");
+        }
+      }
+    });
+  }
+
+  //被驳回后的申请人数据获取
+  function loadData(url, json) {
+    $.ajax({
+      url: url,
+      type: "POST",
+      cache: false,
+      data: nui.encode(json),
+      contentType: 'text/json',
+      success: ajaxSucceCallBack//数据获取成功，在页面中编写function ajaxSucceCallBack(text){console.log(text)}即可获取成功返回的数据
+    });
+  }
+
+  function submitCheckDataContent() {
+    submitCheckData();
+  }
+
+  //同意审核提交方法（审核页面）
+  function submitCheckData() {
+    var form = new nui.Form("#inputHiddenData");
+    var opinionData = form.getData();
+    var parameter = {};
+    if ($("#opinionContent").val() == null) {
+      opinionData.opinionContent = "同意";
+    } else {
+      opinionData.opinionContent = $("#opinionContent").val();
+    }
+    if (!Verifil.IsNoNull(opinionData.opinionContent)) {
+      DDAlert("请输入审核意见");
+      return;
+    }
+    parameter.opinion = opinionData;
+    parameter.bus = busData;
+    parameter.processData = param;
+    parameter.businessData = busData;
+    /**
+     * ajaxData(url, href, data, msg)
+     * url: 接口地址
+     * href: 执行成功后页面跳转/刷新当前页
+     * data: 提交的表单数据
+     * msg: 弹窗提示
+     */
+    ajaxData("com.primeton.bps.process.process.finishCurrentWorkItem.biz.ext", "../myAgency.jsp", parameter, "已同意");
+  }
+
+
+  //驳回提交方法（审核页面）
+  function rejectCheckData2() {
+    if (!rejectData) {
+      DDAlert("请选择回退的环节!");
+      return;
+    }
+    var form = new nui.Form("#inputHiddenData");
+    var opinionData = form.getData();
+    var parameter = {};
+    if ($("#opinionContent2").val() == null) {
+      DDAlert("请输入驳回意见!");
+      return;
+    } else {
+      opinionData.opinionContent = $("#opinionContent2").val();
+    }
+    if (!Verifil.IsNoNull(opinionData.opinionContent)) {
+      DDAlert("请输入审核意见");
+      return;
+    }
+    parameter.opinion = opinionData;
+    parameter.bus = busData;
+    parameter.processData = param;
+    parameter.businessData = busData;
+    parameter.rejectData = rejectData;
+    /**
+     * ajaxData(url, href, data, msg)
+     * url: 接口地址
+     * href: 执行成功后页面跳转/刷新当前页
+     * data: 提交的表单数据
+     * msg: 弹窗提示
+     */
+    //执行数据提交方法
+    ajaxData("com.primeton.bps.process.process.reject.biz.ext", "../myAgency.jsp", parameter, "已驳回");
+  }
+
+  //通用提交已阅的方法
+  function readSubmitData() {
+
+    var parameter = {};
+    parameter.uploadFiles = uploadFiles;
+    parameter.processData = param;
+    parameter.businessData = busData;
+
+    ajaxData("com.primeton.bps.process.process.finishCurrentWorkItemByRead.biz.ext", "../myAgency.jsp", parameter, "提交成功");
+  }
+
+  //撤回流程（终止流程）
+  function terminalProcess() {
+    var form = new nui.Form("#apply");
+    var opinionData = form.getData();
+    var parameter = {};
+    if ($("#opinionContent").val() == null) {
+      opinionData.opinionContent = "终止流程";
+    } else {
+      opinionData.opinionContent = $("#opinionContent").val();
+    }
+    if (!Verifil.IsNoNull(opinionData.opinionContent)) {
+      DDAlert("请输入处理意见");
+      return;
+    }
+    parameter.opinion = opinionData;
+    parameter.bus = busData;
+    parameter.processData = param;
+    parameter.businessData = busData;
+    /**
+     * ajaxData(url, href, data, msg)
+     * url: 接口地址
+     * href: 执行成功后页面跳转/刷新当前页
+     * data: 提交的表单数据
+     * msg: 弹窗提示
+     */
+    ajaxData("com.primeton.bps.process.process.terminalProcess.biz.ext", "../myAgency.jsp", parameter, "已终止");
+  }
+
+</script>
+<script type="text/javascript" src="static/jquery.qrcode.min.js"></script>
+<script type="text/javascript">
+  $(function () {
+    time(".new-time");
+    getData();
+  })
+
+  //当前时间
+  function time(elem) {
+    setTimeout(function () {
+      var thatDate = new Date();
+      //var myYear = thatDate.getFullYear();
+      var myMonth = thatDate.getMonth() + 1;
+      var myDate = thatDate.getDate();
+      var myHours = thatDate.getHours();
+      var myMinutes = thatDate.getMinutes();
+      var mySeconds = thatDate.getSeconds();
+      $(elem).html(zeroFill(myMonth) + "月" + zeroFill(myDate) + "日" + "<p class='time-inner'>" + zeroFill(myHours) + ":" + zeroFill(myMinutes) + ":" + zeroFill(mySeconds) + "</p>");
+      time(elem);
+    }, 500);
+  }
+
+  //二维码生成方法
+  function qrGenerate(foreground, text) {
+    console.log(text);
+    jQuery('#qrcode').qrcode({
+      render: "canvas", //也可以替换为table
+      foreground: foreground,
+      background: "#FFF",
+      text: text
+    });
+  }
+
+  //十位数补零方法
+  function zeroFill(value) {
+    return value >= 10 ? value : "0" + value;
+  }
+
+  //学校录入学生返校码(ajax数据请求)
+  function getStudentBackSchoolData() {
+    $.ajax({
+      url: "backSchoolData.json",
+      type: 'POST',
+      data: {xh: "12345678"},
+      async: false,
+      cache: false,
+      dataType: "json",
+      success: function (res) {
+        isGetStudentBackSchoolData(res)
+      }
+    })
+  }
+
+  //学校录入学生返校码（数据判断）
+  function isGetStudentBackSchoolData(res) {
+    if (res.data.length > 0) {
+      successStudentBackSchoolData.EpiData(res.data)
+    } else {//无数据
+      successStudentBackSchoolData.putDataSet();
+    }
+  }
+
+  //学校录入学生返校码（数据绑定）
+  var successStudentBackSchoolData = {
+    EpiData: function (datas) {
+      var dateTime = thatDate().thatTime()
+      // var dateTime = new Date(thatDate().thatTime().replace(/\-/g, "/")).getTime();
+      var data = datas[0];
+      $(".user-name").text(data.XM + "的返校码");
+      $(".user-type").text(data.BZ);
+      $(".valid-time span").text(data.FXRQ);
+      $(".health-type span").text(data.JKM);
+      $(".sync-time span").text(data.INDATE);
+      var url = "http://dingding.zucc.edu.cn:80/default/process/backSchoolCode/details.jsp?data=" + escape(JSON.stringify(data));
+      //绿码
+      if (data.JKM === "绿码" && data.SFDK === "0" && data.FXRQ === dateTime) {
+        qrGenerate("#3E89F6", url);
+        $("#apply").show();
+      } else {//灰码
+        getStudentPass(url)
+      }
+    },
+    putDataSet: function () {
+      getStudentPass()
+    }
+  }
+
+
+  //学生通行码（申请得到）(ajax数据请求)
+  function getStudentPass(parentUrl) {
+    $.ajax({
+      url: "studentPass.json",
+      type: 'POST',
+      data: {xh: "12345678"},
+      async: false,
+      cache: false,
+      dataType: "json",
+      success: function (res) {
+        if (parentUrl) {
+          isGetStudentPass(res, parentUrl)
+        } else {
+          isGetStudentPass(res)
+        }
+      }
+    })
+  }
+
+  //学生通行码（申请得到）（数据判断）
+  function isGetStudentPass(res, parentUrl) {
+    if (res.data.length > 0) {
+      successStudentPass.EpiData(res.data, parentUrl)
+    } else {
+      successStudentPass.putDataSet();
+    }
+  }
+
+  //学生通行码（申请得到）（数据绑定）
+  var successStudentPass = {
+    EpiData: function (datas, parentUrl) {
+      var dateTime = new Date(thatDate().thatTime().replace(/\-/g, "/")).getTime();
+      var data = datas[0];
+      var cxsj = new Date(data.CXSJ.replace(/\-/g, "/")).getTime();
+      var fxsj = new Date(data.FXSJ.replace(/\-/g, "/")).getTime();
+      var url = "http://dingding.zucc.edu.cn:80/default/process/backSchoolCode/details.jsp?data=" + escape(JSON.stringify(datas));
+      if (data.JKM === "绿码" && cxsj <= dateTime && dateTime <= fxsj) {
+        $(".user-name").text(data.XM + "的通行码");
+        $(".user-type").text(data.BZ);
+        $(".valid-time span").text(data.CXSJ + " - " + data.FXSJ);
+        $(".health-type span").text(data.JKM);
+        $(".sync-time span").text(data.INDATE);
+        $("title").text("浙大城市学院通行码");
+        qrGenerate("#3E89F6", url);
+        $("#apply").show();
+      } else {
+        if (parentUrl) {
+          getStudentBackSchoolData2()
+        } else {
+          getStudentBackSchoolData2(url)
+        }
+      }
+    },
+    putDataSet: function () {
+      getStudentBackSchoolData2()
+    }
+  }
+
+  //学生返校码（申请得到）
+  function getStudentBackSchoolData2(parentUrl) {
+    $.ajax({
+      url: "com.ygc.product.ehall.dingding.backSchool.getBackSchoolState.getStudentBackSchoolData2.biz.ext",
+      type: 'POST',
+      data: {xh: "12345678"},
+      cache: false,
+      dataType: "json",
+      success: function (res) {
+        if (parentUrl) {
+          isStudentBackSchoolData2(res, parentUrl)
+        } else {
+          isStudentBackSchoolData2(res)
+        }
+      }
+    })
+  }
+
+  function isStudentBackSchoolData2(res, parentUrl) {
+    if (res.data.length > 0) {
+      successStudentBackSchoolData2.EpiData(res.data, parentUrl)
+    } else {
+      successStudentBackSchoolData2.putDataSet()
+    }
+  }
+
+  var successStudentBackSchoolData2 = {
+    EpiData: function (data, parentUrl) {
+      var dateTime = new Date(thatDate().thatTime().replace(/\-/g, "/")).getTime();
+      var datas = data[0];
+      var fxrq = new Date(datas.FXRQ.replace(/\-/g, "/")).getTime();
+      $(".user-name").text(datas.XM + "的返校码");
+      $(".user-type").text(datas.BZ);
+      $(".valid-time span").text(datas.FXRQ);
+      $(".health-type span").text(datas.JKM);
+      $(".sync-time span").text(datas.INDATE);
+      $("title").text("浙大城市学院返校码");
+      var url = "http://dingding.zucc.edu.cn:80/default/process/backSchoolCode/details.jsp?data=" + escape(JSON.stringify(datas));
+      if (datas.JKM === "绿码" && dateTime == fxrq) {
+        qrGenerate("#3E89F6", url);
+        $("#apply").show();
+      } else {
+        if (parentUrl) {
+          qrGenerate("#999", url);
+          $("#apply").show();
+        } else {
+          DDAlertClick("暂无通行码!", closeDingDingPage);
+        }
+      }
+    },
+    putDataSet: function () {
+      DDAlertClick("暂无返校码!", closeDingDingPage);
+    }
+  }
+
+  function getData() {
+    var min;
+    var myTime = new Date();
+    var myYear = myTime.getFullYear();
+    var myMonth = myTime.getMonth() + 1;
+    var myDate = myTime.getDate();
+    var thatTime = myYear + "-" + zeroFill(myMonth) + "-" + zeroFill(myDate);
+    var dateTime = new Date(thatTime.replace(/\-/g, "/")).getTime();
+    getStudentBackSchoolData(thatTime)
+  }
+
+  function thatDate() {
+    var dateObj = {
+      myTime: function () {
+        return new Date();
+      },
+      myYear: function () {
+        return dateObj.myTime().getFullYear();
+      },
+      myMonth: function () {
+        return dateObj.myTime().getMonth() + 1;
+      },
+      myDate: function () {
+        return dateObj.myTime().getDate();
+      },
+      thatTime: function () {
+        return dateObj.myYear() + "-" + zeroFill(dateObj.myMonth()) + "-" + zeroFill(dateObj.myDate());
+      }
+
+    }
+    return dateObj;
+  }
+
+</script>
+
+</html>
